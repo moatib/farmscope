@@ -1,0 +1,110 @@
+name: release
+
+# Déclenché en poussant un tag de version, ex. : git tag v1.0.0 && git push --tags
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # nécessaire pour créer la Release et y attacher les fichiers
+
+env:
+  PROJECT: RASLogAggregator/RASLogAggregator.csproj
+  # Signature activée seulement si les secrets Trusted Signing sont présents.
+  SIGN_ENABLED: ${{ secrets.AZURE_CLIENT_ID != '' && 'true' || 'false' }}
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Version depuis le tag
+        id: ver
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}".TrimStart('v')
+          if ([string]::IsNullOrWhiteSpace($v) -or $v -eq "${{ github.ref_name }}") { $v = "0.0.0-dev" }
+          echo "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Restore
+        run: dotnet restore $env:PROJECT
+
+      - name: Publish (self-contained, exe unique)
+        run: >
+          dotnet publish $env:PROJECT
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:Version=${{ steps.ver.outputs.version }}
+          -o publish/self-contained
+
+      - name: Publish (framework-dependent, léger)
+        run: >
+          dotnet publish $env:PROJECT
+          -c Release -r win-x64 --self-contained false
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.ver.outputs.version }}
+          -o publish/framework-dependent
+
+      # ---- Signature (optionnelle) via Microsoft Trusted Signing ----
+      # S'exécute uniquement si les secrets sont configurés dans le dépôt.
+      # Voir RELEASING.md pour la liste des secrets et l'alternative SignPath (gratuite OSS).
+      - name: Sign with Trusted Signing
+        if: env.SIGN_ENABLED == 'true'
+        uses: azure/trusted-signing-action@v0.5.0   # vérifier le dernier tag de l'action
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: ${{ secrets.TRUSTED_SIGNING_ENDPOINT }}
+          trusted-signing-account-name: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
+          certificate-profile-name: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
+          files-folder: ${{ github.workspace }}\publish
+          files-folder-filter: exe
+          files-folder-recurse: true
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Packaging + hashes SHA256
+        shell: pwsh
+        run: |
+          $v = "${{ steps.ver.outputs.version }}"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Compress-Archive -Path publish/self-contained/*    -DestinationPath "dist/FarmScope-$v-win-x64-selfcontained.zip" -Force
+          Compress-Archive -Path publish/framework-dependent/* -DestinationPath "dist/FarmScope-$v-win-x64-framework.zip" -Force
+          Get-ChildItem dist/*.zip | ForEach-Object {
+            $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash
+            "$h  $($_.Name)" | Out-File "$($_.FullName).sha256" -Encoding ascii
+          }
+
+      - name: Avertissement si non signé
+        if: env.SIGN_ENABLED != 'true'
+        shell: pwsh
+        run: Write-Host "::warning::Binaires NON signés (aucun secret de signature configuré). SmartScreen avertira les utilisateurs."
+
+      - name: Créer la Release GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          name: FarmScope ${{ steps.ver.outputs.version }}
+          generate_release_notes: true
+          body: |
+            ## Downloads / Téléchargements
+
+            | File | For whom / Pour qui |
+            |---|---|
+            | **`…-selfcontained.zip`** | Works out of the box, no .NET required. Larger download. / Fonctionne tel quel, aucun .NET requis. Plus volumineux. |
+            | **`…-framework.zip`** | Lightweight. Requires .NET 9 Desktop Runtime: `winget install Microsoft.DotNet.DesktopRuntime.9` / Léger. Nécessite le .NET 9 Desktop Runtime. |
+
+            Both contain `FarmScope.exe` + `config.json` (keep them together).
+            Verify integrity with the `.sha256` files. / Vérifiez l'intégrité avec les fichiers `.sha256`.
+
+            Requires the RAS PowerShell module (installed with the RAS console) on the machine running the tool.
+          files: |
+            dist/*.zip
+            dist/*.sha256

@@ -1,0 +1,16 @@
+# Build
+bin/
+obj/
+publish/
+dist/
+*.user
+
+# IDE
+.vs/
+.idea/
+*.suo
+
+# Artefacts de signature / secrets (ne jamais committer)
+*.pfx
+*.snk
+*.cer

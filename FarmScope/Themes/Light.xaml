@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- FarmScope — thème clair « papier, jour » : fond chaud non éblouissant,
+         sévérités assombries pour le contraste en lecture prolongée. -->
+    <SolidColorBrush x:Key="Bg"        Color="#F5F3ED"/>
+    <SolidColorBrush x:Key="BgPanel"   Color="#ECE8DF"/>
+    <SolidColorBrush x:Key="BgHeader"  Color="#E7E2D6"/>
+    <SolidColorBrush x:Key="Fg"        Color="#2A333E"/>
+    <SolidColorBrush x:Key="FgDim"     Color="#707B89"/>
+    <SolidColorBrush x:Key="Accent"    Color="#B07A1E"/>
+    <SolidColorBrush x:Key="AccentFg"  Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Line"      Color="#D8D2C3"/>
+    <SolidColorBrush x:Key="ButtonBg"  Color="#FBFAF6"/>
+
+    <SolidColorBrush x:Key="Error"     Color="#B33A3A"/>
+    <SolidColorBrush x:Key="Warn"      Color="#8F6A00"/>
+    <SolidColorBrush x:Key="Debug"     Color="#94A0AC"/>
+
+    <SolidColorBrush x:Key="ErrorFill" Color="#1FB33A3A"/>
+    <SolidColorBrush x:Key="WarnFill"  Color="#1F8F6A00"/>
+    <SolidColorBrush x:Key="InfoFill"  Color="#1F2A333E"/>
+    <SolidColorBrush x:Key="DebugFill" Color="#1F94A0AC"/>
+    <SolidColorBrush x:Key="OtherFill" Color="#1F707B89"/>
+
+    <SolidColorBrush x:Key="RowBg"     Color="#F5F3ED"/>
+    <SolidColorBrush x:Key="RowAltBg"  Color="#EFECE3"/>
+    <SolidColorBrush x:Key="GridLine"  Color="#E3DECF"/>
+
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#C9DCEF"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#DCE6EF"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#2A333E"/>
+</ResourceDictionary>

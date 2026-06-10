@@ -1,0 +1,72 @@
+<Window x:Class="RASLogAggregator.Views.ConnectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FarmScope" Height="430" Width="460"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="{DynamicResource Bg}" Foreground="{DynamicResource Fg}"
+        FontFamily="{StaticResource UiFont}" FontSize="13">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" x:Name="HeadingText" Text=""
+                   FontSize="16" FontWeight="SemiBold" Margin="0,0,0,4"/>
+        <TextBlock Grid.Row="1" x:Name="SubText" Foreground="{DynamicResource FgDim}" TextWrapping="Wrap"
+                   Text="" Margin="0,0,0,14"/>
+
+        <Label   Grid.Row="2" x:Name="ServerLbl" Content=""/>
+        <TextBox Grid.Row="3" x:Name="ServerBox" Margin="0,2,0,10" Padding="6,4"
+                 Background="{DynamicResource BgPanel}" Foreground="{DynamicResource Fg}"
+                 BorderBrush="{DynamicResource Line}" CaretBrush="{DynamicResource Accent}"/>
+
+        <Label   Grid.Row="4" x:Name="UserLbl" Content=""/>
+        <TextBox Grid.Row="5" x:Name="UserBox" Margin="0,2,0,10" Padding="6,4"
+                 Background="{DynamicResource BgPanel}" Foreground="{DynamicResource Fg}"
+                 BorderBrush="{DynamicResource Line}" CaretBrush="{DynamicResource Accent}"/>
+
+        <Label       Grid.Row="6" x:Name="PassLbl" Content=""/>
+        <PasswordBox Grid.Row="7" x:Name="PassBox" Margin="0,2,0,10" Padding="6,4"
+                     Background="{DynamicResource BgPanel}" Foreground="{DynamicResource Fg}"
+                     BorderBrush="{DynamicResource Line}" CaretBrush="{DynamicResource Accent}"/>
+
+        <StackPanel Grid.Row="8" VerticalAlignment="Top">
+            <CheckBox x:Name="AltCredsCheck" Content=""
+                      Checked="AltCreds_Changed" Unchecked="AltCreds_Changed"/>
+            <Grid x:Name="AltCredsPanel" Visibility="Collapsed" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                    <Label x:Name="ShareUserLbl" Content=""/>
+                    <TextBox x:Name="ShareUserBox" Padding="6,4"
+                             Background="{DynamicResource BgPanel}" Foreground="{DynamicResource Fg}"
+                             BorderBrush="{DynamicResource Line}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                    <Label x:Name="SharePassLbl" Content=""/>
+                    <PasswordBox x:Name="SharePassBox" Padding="6,4"
+                                 Background="{DynamicResource BgPanel}" Foreground="{DynamicResource Fg}"
+                                 BorderBrush="{DynamicResource Line}"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button x:Name="CancelBtn" Content="" Click="Cancel_Click" Width="90"/>
+            <Button x:Name="ConnectBtn2" Content="" Click="Connect_Click" Width="110"
+                    Background="{DynamicResource Accent}" Foreground="{DynamicResource AccentFg}"
+                    FontWeight="SemiBold"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- FarmScope — thème sombre « salle de contrôle, nuit » -->
+    <SolidColorBrush x:Key="Bg"        Color="#131A22"/>
+    <SolidColorBrush x:Key="BgPanel"   Color="#1B2430"/>
+    <SolidColorBrush x:Key="BgHeader"  Color="#0E141B"/>
+    <SolidColorBrush x:Key="Fg"        Color="#D8E1EA"/>
+    <SolidColorBrush x:Key="FgDim"     Color="#7C8B9A"/>
+    <SolidColorBrush x:Key="Accent"    Color="#E8A33D"/>
+    <SolidColorBrush x:Key="AccentFg"  Color="#131A22"/>
+    <SolidColorBrush x:Key="Line"      Color="#2C3947"/>
+    <SolidColorBrush x:Key="ButtonBg"  Color="#202B38"/>
+
+    <SolidColorBrush x:Key="Error"     Color="#FF6B6B"/>
+    <SolidColorBrush x:Key="Warn"      Color="#E3B341"/>
+    <SolidColorBrush x:Key="Debug"     Color="#5E6B79"/>
+
+    <SolidColorBrush x:Key="ErrorFill" Color="#26FF6B6B"/>
+    <SolidColorBrush x:Key="WarnFill"  Color="#26E3B341"/>
+    <SolidColorBrush x:Key="InfoFill"  Color="#26D8E1EA"/>
+    <SolidColorBrush x:Key="DebugFill" Color="#265E6B79"/>
+    <SolidColorBrush x:Key="OtherFill" Color="#267C8B9A"/>
+
+    <SolidColorBrush x:Key="RowBg"     Color="#131A22"/>
+    <SolidColorBrush x:Key="RowAltBg"  Color="#161E28"/>
+    <SolidColorBrush x:Key="GridLine"  Color="#1C2632"/>
+
+    <!-- Sélection DataGrid (résolue dynamiquement par WPF) -->
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#2E4156"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#26384B"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#D8E1EA"/>
+</ResourceDictionary>

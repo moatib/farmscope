@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>FarmScope</AssemblyName>
+    <RootNamespace>RASLogAggregator</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>FarmScope</Product>
+    <Authors>Mathieu PREBIN</Authors>
+    <Copyright>© 2026 Mathieu PREBIN</Copyright>
+    <Description>FarmScope — agrégateur de logs communautaire (non officiel) pour fermes Parallels RAS.</Description>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- config.json est copié à côté de l'exe pour rester éditable sans recompiler -->
+    <None Update="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
