@@ -1,3 +1,4 @@
+![FarmScope](docs/farmscope.jpg)
 # FarmScope
 
 Outil Windows léger pour **agréger les logs de tous les composants d'une ferme Parallels RAS**
