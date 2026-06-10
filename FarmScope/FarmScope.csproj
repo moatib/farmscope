@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>FarmScope</AssemblyName>
-    <RootNamespace>RASLogAggregator</RootNamespace>
+    <RootNamespace>FarmScope</RootNamespace>
     <Version>1.0.0</Version>
     <Product>FarmScope</Product>
     <Authors>Mathieu PREBIN</Authors>
