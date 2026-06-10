@@ -1,3 +1,4 @@
+![Description de l'image](docs/farmscope.jpg)
 # FarmScope
 
 Outil .exe autonome (C# / WPF, .NET 8) pour **interroger une ferme Parallels RAS**,

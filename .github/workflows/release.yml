@@ -10,7 +10,7 @@ permissions:
   contents: write   # nécessaire pour créer la Release et y attacher les fichiers
 
 env:
-  PROJECT: RASLogAggregator/RASLogAggregator.csproj
+  PROJECT: FarmScope/FarmScope.csproj
   # Signature activée seulement si les secrets Trusted Signing sont présents.
   SIGN_ENABLED: ${{ secrets.AZURE_CLIENT_ID != '' && 'true' || 'false' }}
 
