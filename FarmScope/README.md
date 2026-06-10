@@ -1,4 +1,4 @@
-# RAS Log Aggregator
+# FarmScope
 
 Outil .exe autonome (C# / WPF, .NET 8) pour **interroger une ferme Parallels RAS**,
 découvrir ses composants via l'**API PowerShell RASAdmin**, puis **agréger les logs**
