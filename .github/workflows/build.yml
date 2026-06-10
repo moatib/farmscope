@@ -16,6 +16,6 @@ jobs:
         with:
           dotnet-version: '9.0.x'
       - name: Restore
-        run: dotnet restore RASLogAggregator/RASLogAggregator.csproj
+        run: dotnet restore FarmScope/FarmScope.csproj
       - name: Build
-        run: dotnet build RASLogAggregator/RASLogAggregator.csproj -c Release --no-restore
+        run: dotnet build FarmScope/FarmScope.csproj -c Release --no-restore
